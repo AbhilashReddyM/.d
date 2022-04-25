@@ -1,0 +1,7 @@
+
+[user]
+	name = Abhilash Reddy M
+	email = 16097309+AbhilashReddyM@users.noreply.github.com
+	username = abhilashreddym
+[core]
+	sshcommand = ssh -i ~/.ssh/bbp_key -o IdentitiesOnly=yes -F /dev/null
