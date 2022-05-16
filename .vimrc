@@ -1,6 +1,9 @@
 set visualbell
 "apply highlighting to scons files
-au BufRead,BufNewFile Sconstruct,SConscript set filetype=python
+autocmd BufRead,BufNewFile Sconstruct,SConscript set filetype=python
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['f=fortran', 'py=python', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'xml', 'html']
 
 "some help for syntax hightlighting for fortran
 nmap <S-F> :set syntax=fortran<CR>:let b:fortran_fixed_source=!b:fortran_fixed_source<CR>:set syntax=text<CR>:set syntax=fortran<CR>
