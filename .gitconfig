@@ -5,3 +5,4 @@
 	username = abhilashreddym
 [core]
 	sshcommand = ssh -i ~/.ssh/bbp_key -o IdentitiesOnly=yes -F /dev/null
+	editor = vim

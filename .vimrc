@@ -1,13 +1,37 @@
+
+"Always show status line
+set laststatus=2
+
+"Markdown conceal level. 0-3. 2 shows markup when a line is highlighted
+set cole=2
+
+" set hybrid line numbering. This is done by turning on both line numbering and relative line numbering
+set nu rnu
+" toggle line
+noremap <F3> :set nu! rnu!<CR>
+
 set visualbell
+
 "apply highlighting to scons files
 autocmd BufRead,BufNewFile Sconstruct,SConscript set filetype=python
 
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['f=fortran', 'py=python', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'xml', 'html']
+"Apply markdown highlighting
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+let g:markdown_fenced_languages = ['sh=bash','f=fortran', 'py=python', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'xml', 'html']
+
+" change leader key to ;
+let mapleader = ";"
+
+" timeout length in ms for leader
+set timeoutlen=1500
+
+" buffer navigation
+map <leader>n :bn<CR>
+map <leader>p :bp<CR>
 
 "some help for syntax hightlighting for fortran
-nmap <S-F> :set syntax=fortran<CR>:let b:fortran_fixed_source=!b:fortran_fixed_source<CR>:set syntax=text<CR>:set syntax=fortran<CR>
-nmap <C-F> :filetype detect<CR>
+"nmap <S-F> :set syntax=fortran<CR>:let b:fortran_fixed_source=!b:fortran_fixed_source<CR>:set syntax=text<CR>:set syntax=fortran<CR>
+"nmap <C-F> :filetype detect<CR>
 let fortran_free_source=1
 let fortran_have_tabs=1
 let fortran_more_precise=1
@@ -17,6 +41,8 @@ syntax on
 
 " gets rid of old search highlighting
 nnoremap <CR> :noh<CR><CR>
+
+" get a nice tab line
 set tabline=%!MyTabLine()
 function MyTabLine()
   let s = '' " complete tabline goes here
