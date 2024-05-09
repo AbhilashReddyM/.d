@@ -7,7 +7,8 @@ set cole=2
 
 " set hybrid line numbering. This is done by turning on both line numbering and relative line numbering
 set nu rnu
-" toggle line
+
+" toggle line numbering
 noremap <F3> :set nu! rnu!<CR>
 
 set visualbell
@@ -19,8 +20,9 @@ autocmd BufRead,BufNewFile Sconstruct,SConscript set filetype=python
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 let g:markdown_fenced_languages = ['sh=bash','f=fortran', 'py=python', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'xml', 'html']
 
-" change leader key to ;
-let mapleader = ";"
+" change leader key to space
+nnoremap <SPACE> <Nop>
+let mapleader = "\<SPACE>"
 
 " timeout length in ms for leader
 set timeoutlen=1500
@@ -28,19 +30,62 @@ set timeoutlen=1500
 " buffer navigation
 map <leader>n :bn<CR>
 map <leader>p :bp<CR>
+map <leader>d :bd<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Files<CR>
+
+"Plugins using vim-plug 
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-sensible'
+Plug 'vim-airline/vim-airline'
+Plug 'chrisbra/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'mhinz/vim-startify'
+Plug 'bling/vim-bufferline'
+Plug 'easymotion/vim-easymotion'
+call plug#end()
 
 "some help for syntax hightlighting for fortran
-"nmap <S-F> :set syntax=fortran<CR>:let b:fortran_fixed_source=!b:fortran_fixed_source<CR>:set syntax=text<CR>:set syntax=fortran<CR>
-"nmap <C-F> :filetype detect<CR>
+nmap <S-F> :set syntax=fortran<CR>:let b:fortran_fixed_source=!b:fortran_fixed_source<CR>:set syntax=text<CR>:set syntax=fortran<CR>
+nmap <C-F> :filetype detect<CR>
 let fortran_free_source=1
 let fortran_have_tabs=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
+let fortran_fold=1
+let fortran_fold_conditionals=1
+let fortran_fols_multilinecomments=1
 filetype plugin indent off
 syntax on
 
+" I want
+"  - autoindent to use spaces
+"  - tabs to be 4 spaces wide and
+"  - Tab character when i press the tab key on my keyboard
+set tabstop     =4
+set softtabstop =4
+set shiftwidth  =4
+set expandtab
+inoremap <tab> <c-v><tab>
+
+" fold using syntax
+set foldmethod=syntax
+
+" open files without any closed folds
+au BufWinEnter * normal zR
+
 " gets rid of old search highlighting
 nnoremap <CR> :noh<CR><CR>
+
+
+"Python syntax customization
+autocmd BufRead,BufNewFile *.py setlocal foldmethod=indent
+
+"  open files without any closed folds
+au BufWinEnter * normal zR
+
 
 " get a nice tab line
 set tabline=%!MyTabLine()
